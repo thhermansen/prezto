@@ -80,7 +80,13 @@ function _terminal-set-titles-with-path {
 
 # Sets the Terminal.app proxy icon.
 function _terminal-set-terminal-app-proxy-icon {
-  printf '\e]7;%s\a' "file://$HOST${${1:-$PWD}// /%20}"
+  local url
+
+  if zstyle -t ':prezto:module:terminal' set-app-proxy-icon; then
+    url="file://${HOST}${PWD// /%20}"
+  fi
+
+  printf '\e]7;%s\a' "$url"
 }
 
 # Do not override precmd/preexec; append to the hook array.
@@ -92,6 +98,7 @@ if [[ "$TERM_PROGRAM" == 'Apple_Terminal' ]] \
 then
   # Sets the Terminal.app current working directory before the prompt is
 	# displayed.
+  zstyle ':prezto:module:terminal' set-app-proxy-icon 'yes'
   add-zsh-hook precmd _terminal-set-terminal-app-proxy-icon
 
 	# Unsets the Terminal.app current working directory when a terminal
@@ -100,7 +107,10 @@ then
   # bar is no longer synchronized with real current working directory.
 	function _terminal-unset-terminal-app-proxy-icon {
     if [[ "${2[(w)1]:t}" == (screen|tmux|dvtm|ssh|mosh) ]]; then
-      _terminal-set-terminal-app-proxy-icon ' '
+      zstyle ':prezto:module:terminal' set-app-proxy-icon 'no'
+      _terminal-set-terminal-app-proxy-icon
+    else
+      zstyle ':prezto:module:terminal' set-app-proxy-icon 'yes'
     fi
 	}
 	add-zsh-hook preexec _terminal-unset-terminal-app-proxy-icon
