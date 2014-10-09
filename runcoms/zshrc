@@ -12,3 +12,5 @@ fi
 
 # Customize to your needs...
 
+alias finder_show_hidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias finder_hide_hidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
