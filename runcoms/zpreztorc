@@ -35,6 +35,7 @@ zstyle ':prezto:load' pmodule \
   'fasd' \
   'ssh' \
   'osx' \
+  'zeus' \
   'git' \
   'ruby' \
   'python' \
