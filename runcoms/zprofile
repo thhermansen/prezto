@@ -45,10 +45,10 @@ typeset -gU cdpath fpath mailpath path
 path=(
   ~/bin
   ./bin
-  .bundle/bin
   ./node_modules/.bin
   /usr/local/{bin,sbin}
   /usr/local/share/npm/bin
+  /Applications/Postgres.app/Contents/Versions/9.4/bin
   $path
 )
 
